@@ -1,7 +1,7 @@
 ﻿using System;
 namespace PowerBISampleApp
 {
-	public class PageListViewModel : BaseViewModel
+	public class SelectionViewModel : BaseViewModel
 	{
 	}
 }
