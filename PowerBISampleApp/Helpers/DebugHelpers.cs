@@ -7,8 +7,11 @@ namespace PowerBISampleApp
 {
 	public static class DebugHelpers
 	{
+		#region Enums
 		enum _pathType { Windows, Linux };
+		#endregion
 
+		#region Methods
 		public static void PrintException(
 			Exception exception,
 			[CallerMemberName] string callerMemberName = "",
@@ -54,6 +57,6 @@ namespace PowerBISampleApp
 			return fileName;
 
 		}
-
+		#endregion
 	}
 }

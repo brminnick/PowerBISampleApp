@@ -3,6 +3,8 @@ namespace PowerBISampleApp
 {
 	public class PowerBIIFramePage : BaseContentPage<PowerBIIFrameViewModel>
 	{
+
+		#region Methods
 		protected override void SubscribeEventHandlers()
 		{
 			AreEventHandlersSubscribed = true;
@@ -12,5 +14,6 @@ namespace PowerBISampleApp
 		{
 			AreEventHandlersSubscribed = false;
 		}
+		#endregion
 	}
 }

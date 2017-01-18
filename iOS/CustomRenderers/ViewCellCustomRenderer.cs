@@ -3,7 +3,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-using PowerBISampleApp;
 using PowerBISampleApp.iOS;
 
 [assembly: ExportRenderer(typeof(ViewCell), typeof(ViewCellCustomRenderer))]

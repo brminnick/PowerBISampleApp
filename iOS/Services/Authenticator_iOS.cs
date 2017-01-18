@@ -13,6 +13,7 @@ namespace PowerBISampleApp.iOS
 {
 	public class Authenticator_iOS : IAuthenticator
 	{
+		#region Methods
 		public async Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri)
 		{
 			var authContext = new AuthenticationContext(authority);
@@ -28,5 +29,6 @@ namespace PowerBISampleApp.iOS
 			var authResult = await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
 			return authResult;
 		}
+		#endregion
 	}
 }

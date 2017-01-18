@@ -5,6 +5,7 @@ namespace PowerBISampleApp
 {
 	public class PowerBIIFrameViewModel : BaseViewModel
 	{
+		#region Constructors
 		public PowerBIIFrameViewModel()
 		{
 			Task.Run(async () =>
@@ -26,5 +27,6 @@ namespace PowerBISampleApp
 				}
 			});
 		}
+		#endregion
 	}
 }

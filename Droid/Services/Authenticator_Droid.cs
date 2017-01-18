@@ -13,6 +13,7 @@ namespace PowerBISampleApp.Droid
 {
 	public class Authenticator_Droid : IAuthenticator
 	{
+		#region Methods
 		public async Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri)
 		{
 			var uri = new Uri(returnUri);
@@ -25,5 +26,6 @@ namespace PowerBISampleApp.Droid
 			var authResult = await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
 			return authResult;
 		}
+		#endregion
 	}
 }

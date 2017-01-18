@@ -4,9 +4,10 @@ namespace PowerBISampleApp.iOS
 {
 	public static class HelperMethods
 	{
+		#region Methods
 		public static UIViewController GetVisibleViewController()
 		{
-			return XamarinFormsHelpers.BeginInvokeOnMainThreadAsync<UIViewController>(() =>
+			return XamarinFormsHelpers.BeginInvokeOnMainThreadAsync(() =>
 			{
 				var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
@@ -26,6 +27,7 @@ namespace PowerBISampleApp.iOS
 				return rootController.PresentedViewController;
 			}).Result;
 		}
+		#endregion
 	}
 }
 
