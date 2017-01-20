@@ -14,14 +14,14 @@ namespace PowerBISampleApp
 				{
 					var authenticationData = await DependencyService.Get<IAuthenticator>()?.Authenticate(
 						AzureConstants.Authority,
-						AzureConstants.ApplicationID,
-						AzureConstants.ObjectID,
+						AzureConstants.Resource,
+						AzureConstants.ClientId,
 						AzureConstants.RedirectURL
 					);
 
 					var temp = DateTime.Now;
 				}
-				catch(Exception e)
+				catch (Exception e)
 				{
 					DebugHelpers.PrintException(e);
 				}

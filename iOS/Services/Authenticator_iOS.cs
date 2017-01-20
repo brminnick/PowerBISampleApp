@@ -25,7 +25,6 @@ namespace PowerBISampleApp.iOS
 			var controller = HelperMethods.GetVisibleViewController();
 			var platformParams = new PlatformParameters(controller);
 
-
 			var authResult = await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
 			return authResult;
 		}
