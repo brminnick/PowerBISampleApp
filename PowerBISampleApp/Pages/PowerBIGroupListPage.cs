@@ -1,5 +1,5 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+
 namespace PowerBISampleApp
 {
 	public class PowerBIGroupListPage : BaseContentPage<PowerBIGroupListViewModel>
@@ -15,7 +15,6 @@ namespace PowerBISampleApp
 			};
 			groupListView.SetBinding<PowerBIGroupListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleGroupValueData);
 			groupListView.ItemSelected += (sender, e) => groupListView.SelectedItem = null;
-
 
 			Content = groupListView;
 		}
