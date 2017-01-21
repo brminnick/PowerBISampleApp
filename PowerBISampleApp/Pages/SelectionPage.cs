@@ -7,7 +7,7 @@ namespace PowerBISampleApp
 	public class SelectionPage : BaseContentPage<SelectionViewModel>
 	{
 		#region Constant Fields
-		readonly Button _powerBIWebViewPageButton, _powerBIIFramePageButton;
+		readonly Button _powerBIWebViewPageButton, _powerBIGroupListButton;
 		#endregion
 
 		#region Constructors
@@ -18,9 +18,9 @@ namespace PowerBISampleApp
 				Text = "Open Power BI as WebView"
 			};
 
-			_powerBIIFramePageButton = new Button
+			_powerBIGroupListButton = new Button
 			{
-				Text = "Open Power BI as IFrame"
+				Text = "Get Power BI Group List"
 			};
 
 			Title = "Page List";
@@ -30,7 +30,7 @@ namespace PowerBISampleApp
 				VerticalOptions = LayoutOptions.Center,
 				Children={
 					_powerBIWebViewPageButton,
-					_powerBIIFramePageButton
+					_powerBIGroupListButton
 				}
 			};
 		}
@@ -40,7 +40,7 @@ namespace PowerBISampleApp
 		protected override void SubscribeEventHandlers()
 		{
 			_powerBIWebViewPageButton.Clicked += HandlePowerBIWebViewButtonClicked;
-			_powerBIIFramePageButton.Clicked += HandlePowerBIIFramePageButtonClicked;
+			_powerBIGroupListButton.Clicked += HandlePowerBIIFramePageButtonClicked;
 
 			AreEventHandlersSubscribed = true;
 		}
@@ -48,7 +48,7 @@ namespace PowerBISampleApp
 		protected override void UnsubscribeEventHandlers()
 		{
 			_powerBIWebViewPageButton.Clicked -= HandlePowerBIWebViewButtonClicked;
-			_powerBIIFramePageButton.Clicked -= HandlePowerBIIFramePageButtonClicked;
+			_powerBIGroupListButton.Clicked -= HandlePowerBIIFramePageButtonClicked;
 
 			AreEventHandlersSubscribed = false;
 		}
@@ -60,7 +60,7 @@ namespace PowerBISampleApp
 
 		async void HandlePowerBIIFramePageButtonClicked(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new PowerBIIFramePage());
+			await Navigation.PushAsync(new PowerBIGroupListPage());
 		}
 		#endregion
 	}

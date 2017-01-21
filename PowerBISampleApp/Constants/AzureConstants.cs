@@ -8,5 +8,11 @@
 		public const string RedirectURL = "http://PowerBISampleApp.azurewebsites.net/.auth/login/done";
 		public const string Resource = "https://analysis.windows.net/powerbi/api";
 		public const string ServiceUrl = "https://PowerBISampleApp.azurewebsites.net";
+
+		public const string OAuth2Authority = "https://login.windows.net/common/oauth2/authorize";
+
+		public const string PowerBIOAuth2AuthorityUrl = "https://login.windows.net/common/oauth2/authorize";
+		public const string PowerBIDataSetUrl = "https://api.powerbi.com/v1.0/myorg/datasets";
+		public const string PowerBIGroupUrl = "https://api.powerbi.com/v1.0/myorg/groups";
 	}
 }
