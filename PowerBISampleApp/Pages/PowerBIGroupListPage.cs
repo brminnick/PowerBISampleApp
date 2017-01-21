@@ -16,6 +16,8 @@ namespace PowerBISampleApp
 			groupListView.SetBinding<PowerBIGroupListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleGroupValueData);
 			groupListView.ItemSelected += (sender, e) => groupListView.SelectedItem = null;
 
+			Title = "Group List";
+
 			Content = groupListView;
 		}
 		#endregion
