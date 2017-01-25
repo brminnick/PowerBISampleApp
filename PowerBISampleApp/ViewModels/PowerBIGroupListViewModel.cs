@@ -14,7 +14,7 @@ namespace PowerBISampleApp
 		{
 			Task.Run(async () =>
 			{
-				var rootObject = await AuthenticationHelpers.GetPowerBIData<GroupRootObjectModel>(AzureConstants.PowerBIGroupUrl);
+				var rootObject = await AzureService.GetPowerBIData<GroupRootObjectModel>(AzureConstants.PowerBIGroupUrl);
 				VisibleGroupValueData = rootObject.GroupValueModelList;
 			});
 		}
