@@ -14,7 +14,15 @@ namespace PowerBISampleApp
 				SeparatorVisibility = SeparatorVisibility.None
 			};
 			groupListView.SetBinding<PowerBIGroupListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleGroupValueData);
-			groupListView.ItemSelected += (sender, e) => groupListView.SelectedItem = null;
+			groupListView.ItemTapped += async (sender, e) =>
+			{
+				groupListView.SelectedItem = null;
+
+				var selectedGroupValueModel = e.Item as GroupValueModel;
+				var groupDashboardUrl = $"{AzureConstants.PowerBIGroupUrl}/{selectedGroupValueModel?.Id}/dashboards";
+
+				await Navigation.PushAsync(new DetailsPage(groupDashboardUrl));
+			};
 
 			Title = "Group List";
 
