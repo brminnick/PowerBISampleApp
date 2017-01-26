@@ -2,29 +2,27 @@
 
 namespace PowerBISampleApp
 {
-	public class PowerBIGroupListPage : BaseContentPage<PowerBIGroupListViewModel>
+	public class PowerBIReportsListPage : BaseContentPage<PowerBIReportsListViewModel>
 	{
 		#region Constructors
-		public PowerBIGroupListPage()
+		public PowerBIReportsListPage()
 		{
 			var groupListView = new ListView
 			{
-				Margin = new Thickness(0, 10, 0, 0),
 				ItemTemplate = new DataTemplate(typeof(GroupListImageCell)),
 				SeparatorVisibility = SeparatorVisibility.None
 			};
-			groupListView.SetBinding<PowerBIGroupListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleGroupValueData);
+			groupListView.SetBinding<PowerBIReportsListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleReportsListData);
 			groupListView.ItemTapped += async (sender, e) =>
 			{
 				groupListView.SelectedItem = null;
 
-				var selectedGroupValueModel = e.Item as GroupValueModel;
-				var groupDashboardUrl = $"{AzureConstants.PowerBIGroupUrl}/{selectedGroupValueModel?.Id}/dashboards";
+				var selectedReportsModel = e.Item as ReportsModel;
 
-				await Navigation.PushAsync(new DetailsPage(groupDashboardUrl));
+				await Navigation.PushAsync(new PowerBIWebViewPage(selectedReportsModel?.WebUrl));
 			};
 
-			Title = "Group List";
+			Title = "Reports List";
 
 			Content = groupListView;
 		}

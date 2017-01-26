@@ -12,7 +12,7 @@ using Plugin.Settings;
 
 namespace PowerBISampleApp
 {
-	public static class AzureService
+	public static class PowerBIService
 	{
 		#region Constant Fields
 		const string _accessTokenKey = "TokenKey";

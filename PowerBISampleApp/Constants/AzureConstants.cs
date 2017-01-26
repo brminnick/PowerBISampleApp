@@ -13,6 +13,7 @@
 
 		public const string PowerBIOAuth2AuthorityUrl = "https://login.windows.net/common/oauth2/authorize";
 		public const string PowerBIDataSetUrl = "https://api.powerbi.com/v1.0/myorg/datasets";
-		public const string PowerBIGroupUrl = "https://api.powerbi.com/v1.0/myorg/groups";
+		public const string PowerBIGroupsUrl = "https://api.powerbi.com/v1.0/myorg/groups";
+		public const string PowerBIReportsUrl = "https://api.powerbi.com/v1.0/myorg/reports";
 	}
 }
