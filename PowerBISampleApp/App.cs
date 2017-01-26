@@ -8,7 +8,7 @@ namespace PowerBISampleApp
 	{
 		public App()
 		{
-			MainPage = new NavigationPage(new SelectionPage())
+			MainPage = new NavigationPage(new PowerBIReportsListPage())
 			{
 				BarTextColor = Color.White,
 				BarBackgroundColor = Color.FromHex("3498db")

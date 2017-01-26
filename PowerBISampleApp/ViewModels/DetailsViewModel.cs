@@ -43,7 +43,7 @@ namespace PowerBISampleApp
 		{
 			IsRetrievingData = true;
 
-			var data = await AzureService.GetPowerBIData<GroupDashboardRootObjectModel>(url);
+			var data = await PowerBIService.GetPowerBIData<GroupDashboardRootObjectModel>(url);
 			var embedUrl = data.GroupValueModelList.FirstOrDefault()?.EmbedUrl;
 
 			IsRetrievingData = false;

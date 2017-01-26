@@ -30,14 +30,12 @@
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pages\PowerBIWebViewPage.cs" />
-    <Compile Include="Pages\SelectionPage.cs" />
     <Compile Include="Pages\Base\BaseContentPage.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="Constants\AzureConstants.cs" />
     <Compile Include="Services\IAuthenticator.cs" />
-    <Compile Include="Pages\PowerBIGroupListPage.cs" />
-    <Compile Include="ViewModels\PowerBIGroupListViewModel.cs" />
+    <Compile Include="Pages\PowerBIReportsListPage.cs" />
+    <Compile Include="ViewModels\PowerBIReportsListViewModel.cs" />
     <Compile Include="Helpers\DebugHelpers.cs" />
     <Compile Include="Helpers\XamarinFormsHelpers.cs" />
     <Compile Include="ViewModels\PowerBIRestAPIViewModel.cs" />
@@ -45,7 +43,7 @@
     <Compile Include="Views\GroupListImageCell.cs" />
     <Compile Include="Pages\DetailsPage.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
-    <Compile Include="Services\AzureService.cs" />
+    <Compile Include="Services\PowerBIService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">

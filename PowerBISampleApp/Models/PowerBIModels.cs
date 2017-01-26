@@ -12,7 +12,7 @@ namespace PowerBISampleApp
 		public string Name { get; set; }
 	}
 
-	public class GroupValueModel
+	public class GroupModel
 	{
 		[JsonProperty("id")]
 		public string Id { get; set; }
@@ -30,7 +30,7 @@ namespace PowerBISampleApp
 		public string Name { get; set; }
 
 		[JsonProperty("value")]
-		public List<GroupValueModel> GroupValueModelList { get; set; }
+		public List<GroupModel> GroupModelList { get; set; }
 	}
 
 	public class GroupDashboardRootObjectModel
@@ -55,5 +55,32 @@ namespace PowerBISampleApp
 
 		[JsonProperty("embedUrl")]
 		public string EmbedUrl { get; set; }
+	}
+
+	public class ReportsModel
+	{
+		[JsonProperty ("id")]
+		public string Id { get; set; }
+
+		[JsonProperty("name")]
+		public string Name { get; set; }
+
+		[JsonProperty("webUrl")]
+		public string WebUrl { get; set; }
+
+		[JsonProperty("embedUrl")]
+		public string EmbedUrl { get; set; }
+
+		[JsonProperty("isOwnedByMe")]
+		public bool IsOwnedByMe { get; set; }
+	}
+
+	public class ReportsRootObjectModel
+	{
+		[JsonProperty("name")]
+		public string Name { get; set; }
+
+		[JsonProperty("value")]
+		public List<ReportsModel> ReportsModelList { get; set; }
 	}
 }
