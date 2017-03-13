@@ -9,20 +9,20 @@ namespace PowerBISampleApp
 		public DetailsPage(string groupIdApiUrl)
 		{
 			var isRetrievingDataActivityIndicator = new ActivityIndicator();
-			isRetrievingDataActivityIndicator.SetBinding<DetailsViewModel>(IsEnabledProperty, vm => vm.IsRetrievingData);
-			isRetrievingDataActivityIndicator.SetBinding<DetailsViewModel>(IsVisibleProperty, vm => vm.IsRetrievingData);
+			isRetrievingDataActivityIndicator.SetBinding(IsEnabledProperty, nameof(ViewModel.IsRetrievingData));
+			isRetrievingDataActivityIndicator.SetBinding(IsVisibleProperty, nameof(ViewModel.IsRetrievingData));
 
 			var getChartButton = new Button
 			{
 				Text = "Get Chart",
 				CommandParameter = groupIdApiUrl
 			};
-			getChartButton.SetBinding<DetailsViewModel>(IsEnabledProperty, vm => vm.IsRetrievingData);
-			getChartButton.SetBinding<DetailsViewModel>(IsVisibleProperty, vm => vm.IsGetChartButtonVisible);
-			getChartButton.SetBinding<DetailsViewModel>(Button.CommandProperty, vm => vm.GetChartButtonCommand);
+			getChartButton.SetBinding(IsEnabledProperty, nameof(ViewModel.IsRetrievingData));
+			getChartButton.SetBinding(IsVisibleProperty, nameof(ViewModel.IsGetChartButtonVisible));
+			getChartButton.SetBinding(Button.CommandProperty, nameof(ViewModel.GetChartButtonCommand));
 
 			var iframeSource = new HtmlWebViewSource();
-			iframeSource.SetBinding<DetailsViewModel>(HtmlWebViewSource.HtmlProperty, vm => vm.IFrameHtml);
+			iframeSource.SetBinding(HtmlWebViewSource.HtmlProperty, nameof(ViewModel.IFrameHtml));
 
 			var embededDashboardWebView = new WebView
 			{

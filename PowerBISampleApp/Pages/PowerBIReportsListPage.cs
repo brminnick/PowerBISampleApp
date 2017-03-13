@@ -12,7 +12,7 @@ namespace PowerBISampleApp
 				ItemTemplate = new DataTemplate(typeof(GroupListImageCell)),
 				SeparatorVisibility = SeparatorVisibility.None
 			};
-			groupListView.SetBinding<PowerBIReportsListViewModel>(ListView.ItemsSourceProperty, vm => vm.VisibleReportsListData);
+			groupListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.VisibleReportsListData));
 			groupListView.ItemTapped += async (sender, e) =>
 			{
 				groupListView.SelectedItem = null;
