@@ -21,15 +21,10 @@ namespace PowerBISampleApp
 
 		static readonly TimeSpan _httpTimeout = TimeSpan.FromSeconds(15);
 		static readonly JsonSerializer _serializer = new JsonSerializer();
-		#endregion
-
-		#region Fields
-		static HttpClient _client;
+		static readonly HttpClient _client = CreateHttpClient();
 		#endregion
 
 		#region Properties
-		static HttpClient Client => _client ?? (_client = CreateHttpClient());
-
 		static string AccessToken
 		{
 			get { return CrossSettings.Current.GetValueOrDefault(_accessTokenKey, string.Empty); }
@@ -69,7 +64,7 @@ namespace PowerBISampleApp
 		{
 			var accessToken = await GetPowerBIAccessToken();
 
-			Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AccessTokenType, AccessToken);
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AccessTokenType, AccessToken);
 			var data = await GetDataObjectFromAPI<T>(url);
 
 			return data;
@@ -103,7 +98,7 @@ namespace PowerBISampleApp
 			{
 				try
 				{
-					var response = await Client.GetAsync(apiUrl);
+					var response = await _client.GetAsync(apiUrl);
 					using (var stream = await response.Content.ReadAsStreamAsync())
 					using (var reader = new StreamReader(stream))
 					using (var json = new JsonTextReader(reader))
