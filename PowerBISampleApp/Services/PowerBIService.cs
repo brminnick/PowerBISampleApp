@@ -1,14 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
-using static Newtonsoft.Json.JsonConvert;
+using Newtonsoft.Json;
 
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Plugin.Settings;
 
 using Xamarin.Forms;
-using Plugin.Settings;
 
 namespace PowerBISampleApp
 {
@@ -18,24 +18,31 @@ namespace PowerBISampleApp
 		const string _accessTokenKey = "TokenKey";
 		const string _accessTokenExpiresOnKey = "TokenExpirationDateTimeOffsetKey";
 		const string _accessTokenTypeKey = "AccessTokenTypeKey";
-		const int httpTimeoutInSeconds = 15;
-		static readonly HttpClient _client = new HttpClient { Timeout = TimeSpan.FromSeconds(httpTimeoutInSeconds) };
+
+		static readonly TimeSpan _httpTimeout = TimeSpan.FromSeconds(15);
+		static readonly JsonSerializer _serializer = new JsonSerializer();
+		#endregion
+
+		#region Fields
+		static HttpClient _client;
 		#endregion
 
 		#region Properties
-		static string _accessToken
+		static HttpClient Client => _client ?? (_client = CreateHttpClient());
+
+		static string AccessToken
 		{
 			get { return CrossSettings.Current.GetValueOrDefault(_accessTokenKey, string.Empty); }
 			set { CrossSettings.Current.AddOrUpdateValue(_accessTokenKey, value); }
 		}
 
-		static string _accessTokenType
+		static string AccessTokenType
 		{
 			get { return CrossSettings.Current.GetValueOrDefault(_accessTokenTypeKey, string.Empty); }
 			set { CrossSettings.Current.AddOrUpdateValue(_accessTokenTypeKey, value); }
 		}
 
-		static DateTimeOffset _accessTokenExpiresOnDateTimeOffset
+		static DateTimeOffset AccessTokenExpiresOnDateTimeOffset
 		{
 			get
 			{
@@ -62,7 +69,7 @@ namespace PowerBISampleApp
 		{
 			var accessToken = await GetPowerBIAccessToken();
 
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_accessTokenType, _accessToken);
+			Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AccessTokenType, AccessToken);
 			var data = await GetDataObjectFromAPI<T>(url);
 
 			return data;
@@ -70,10 +77,10 @@ namespace PowerBISampleApp
 
 		static async Task<string> GetPowerBIAccessToken()
 		{
-			if (string.IsNullOrEmpty(_accessToken) || DateTimeOffset.Now.CompareTo(_accessTokenExpiresOnDateTimeOffset) >= 1 || string.IsNullOrEmpty(_accessTokenType))
+			if (string.IsNullOrEmpty(AccessToken) || DateTimeOffset.Now.CompareTo(AccessTokenExpiresOnDateTimeOffset) >= 1 || string.IsNullOrEmpty(AccessTokenType))
 				await Authenticate();
 
-			return _accessToken;
+			return AccessToken;
 		}
 
 		static async Task Authenticate()
@@ -85,9 +92,9 @@ namespace PowerBISampleApp
 						AzureConstants.RedirectURL
 					);
 
-			_accessToken = authenticationResult.AccessToken;
-			_accessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
-			_accessTokenType = authenticationResult.AccessTokenType;
+			AccessToken = authenticationResult.AccessToken;
+			AccessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
+			AccessTokenType = authenticationResult.AccessTokenType;
 		}
 
 		static async Task<T> GetDataObjectFromAPI<T>(string apiUrl)
@@ -96,12 +103,16 @@ namespace PowerBISampleApp
 			{
 				try
 				{
-					var json = await _client.GetStringAsync(apiUrl);
+					var response = await Client.GetAsync(apiUrl);
+					using (var stream = await response.Content.ReadAsStreamAsync())
+					using (var reader = new StreamReader(stream))
+					using (var json = new JsonTextReader(reader))
+					{
+						if (json == null)
+							return default(T);
 
-					if (string.IsNullOrWhiteSpace(json))
-						return default(T);
-
-					return DeserializeObject<T>(json);
+						return _serializer.Deserialize<T>(json);
+					}
 				}
 				catch (Exception e)
 				{
@@ -111,6 +122,27 @@ namespace PowerBISampleApp
 			});
 		}
 
+		static HttpClient CreateHttpClient()
+		{
+			HttpClient client;
+
+			switch (Device.OS)
+			{
+				case TargetPlatform.iOS:
+				case TargetPlatform.Android:
+					client = new HttpClient();
+					break;
+					
+				default:
+					client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
+					break;
+			}
+
+			client.Timeout = _httpTimeout;
+			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+
+			return client;
+		}
 		#endregion
 	}
 }
