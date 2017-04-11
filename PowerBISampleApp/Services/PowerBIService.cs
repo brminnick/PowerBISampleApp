@@ -64,7 +64,8 @@ namespace PowerBISampleApp
 		{
 			var accessToken = await GetPowerBIAccessToken();
 
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AccessTokenType, AccessToken);
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AccessTokenType, accessToken);
+
 			var data = await GetDataObjectFromAPI<T>(url);
 
 			return data;
@@ -94,40 +95,37 @@ namespace PowerBISampleApp
 
 		static async Task<T> GetDataObjectFromAPI<T>(string apiUrl)
 		{
-			return await Task.Run(async () =>
+			try
 			{
-				try
+				var response = await _client.GetAsync(apiUrl);
+				using (var stream = await response.Content.ReadAsStreamAsync())
+				using (var reader = new StreamReader(stream))
+				using (var json = new JsonTextReader(reader))
 				{
-					var response = await _client.GetAsync(apiUrl);
-					using (var stream = await response.Content.ReadAsStreamAsync())
-					using (var reader = new StreamReader(stream))
-					using (var json = new JsonTextReader(reader))
-					{
-						if (json == null)
-							return default(T);
+					if (json == null)
+						return default(T);
 
-						return _serializer.Deserialize<T>(json);
-					}
+					return _serializer.Deserialize<T>(json);
 				}
-				catch (Exception e)
-				{
-					DebugHelpers.PrintException(e);
-					return default(T);
-				}
-			});
+			}
+			catch (Exception e)
+			{
+				DebugHelpers.PrintException(e);
+				return default(T);
+			}
 		}
 
 		static HttpClient CreateHttpClient()
 		{
 			HttpClient client;
 
-			switch (Device.OS)
+			switch (Device.RuntimePlatform)
 			{
-				case TargetPlatform.iOS:
-				case TargetPlatform.Android:
+				case Device.iOS:
+				case Device.Android:
 					client = new HttpClient();
 					break;
-					
+
 				default:
 					client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
 					break;

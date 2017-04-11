@@ -26,10 +26,10 @@ namespace PowerBISampleApp.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PowerBISampleApp.Droid.Resource.Attribute.actionBarSize;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::PowerBISampleApp.Droid.Resource.Id.agentWebView;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::PowerBISampleApp.Droid.Resource.Layout.WebAuthenticationBroker;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::PowerBISampleApp.Droid.Resource.String.ApplicationName;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PowerBISampleApp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

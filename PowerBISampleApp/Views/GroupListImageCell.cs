@@ -6,8 +6,10 @@ namespace PowerBISampleApp
 	{
 		public GroupListImageCell()
 		{
-			this.SetBinding<ReportsModel>(DetailProperty, m => m.Id);
-			this.SetBinding<ReportsModel>(TextProperty, m => m.Name);
+			var model = BindingContext as ReportsModel;
+
+			this.SetBinding(DetailProperty, nameof(model.Id));
+			this.SetBinding(TextProperty, nameof(model.Name));
 			this.SetValue(ImageSourceProperty, "PowerBILogo");
 		}
 	}
