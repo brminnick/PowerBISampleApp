@@ -97,15 +97,14 @@ namespace PowerBISampleApp
 		{
 			try
 			{
-				var response = await _client.GetAsync(apiUrl);
-				using (var stream = await response.Content.ReadAsStreamAsync())
+				using (var stream = await _client.GetStreamAsync(apiUrl).ConfigureAwait(false))
 				using (var reader = new StreamReader(stream))
 				using (var json = new JsonTextReader(reader))
 				{
 					if (json == null)
 						return default(T);
 
-					return _serializer.Deserialize<T>(json);
+					return await Task.Run(() => _serializer.Deserialize<T>(json));
 				}
 			}
 			catch (Exception e)
@@ -117,19 +116,7 @@ namespace PowerBISampleApp
 
 		static HttpClient CreateHttpClient()
 		{
-			HttpClient client;
-
-			switch (Device.RuntimePlatform)
-			{
-				case Device.iOS:
-				case Device.Android:
-					client = new HttpClient();
-					break;
-
-				default:
-					client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
-					break;
-			}
+			var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
 
 			client.Timeout = _httpTimeout;
 			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
