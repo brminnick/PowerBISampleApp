@@ -117,7 +117,6 @@ namespace PowerBISampleApp
 		static HttpClient CreateHttpClient()
 		{
 			var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
-
 			client.Timeout = _httpTimeout;
 			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
