@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using UIKit;
-
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 using PowerBISampleApp.iOS;

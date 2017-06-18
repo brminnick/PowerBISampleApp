@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,24 +16,24 @@ namespace PowerBISampleApp
 
 		#region Properties
 		public Command<string> GetChartButtonCommand => _getDetailsButtonCommand ??
-			(_getDetailsButtonCommand = new Command<string>(async s => await ExecuteGetDetailsButtonCommand(s)));
+            (_getDetailsButtonCommand = new Command<string>(async url => await ExecuteGetDetailsButtonCommand(url)));
 
 		public string IFrameHtml
 		{
-			get { return _IFrameHtml; }
-			set { SetProperty(ref _IFrameHtml, value); }
+			get => _IFrameHtml;
+			set => SetProperty(ref _IFrameHtml, value);
 		}
 
 		public bool IsGetChartButtonVisible
 		{
-			get { return _isGetDetailsButtonVisibile; }
-			set { SetProperty(ref _isGetDetailsButtonVisibile, value); }
+			get => _isGetDetailsButtonVisibile;
+			set => SetProperty(ref _isGetDetailsButtonVisibile, value);
 		}
 
 		public bool IsRetrievingData
 		{
-			get { return _isRetrievingData; }
-			set { SetProperty(ref _isRetrievingData, value); }
+			get => _isRetrievingData;
+			set => SetProperty(ref _isRetrievingData, value);
 		}
 		#endregion
 

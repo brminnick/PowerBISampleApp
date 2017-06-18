@@ -27,14 +27,14 @@ namespace PowerBISampleApp
 		#region Properties
 		static string AccessToken
 		{
-			get { return CrossSettings.Current.GetValueOrDefault(_accessTokenKey, string.Empty); }
-			set { CrossSettings.Current.AddOrUpdateValue(_accessTokenKey, value); }
+			get => CrossSettings.Current.GetValueOrDefault(_accessTokenKey, string.Empty);
+			set => CrossSettings.Current.AddOrUpdateValue(_accessTokenKey, value);
 		}
 
 		static string AccessTokenType
 		{
-			get { return CrossSettings.Current.GetValueOrDefault(_accessTokenTypeKey, string.Empty); }
-			set { CrossSettings.Current.AddOrUpdateValue(_accessTokenTypeKey, value); }
+			get => CrossSettings.Current.GetValueOrDefault(_accessTokenTypeKey, string.Empty);
+			set => CrossSettings.Current.AddOrUpdateValue(_accessTokenTypeKey, value);
 		}
 
 		static DateTimeOffset AccessTokenExpiresOnDateTimeOffset
@@ -116,9 +116,11 @@ namespace PowerBISampleApp
 
 		static HttpClient CreateHttpClient()
 		{
-			var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip });
-			client.Timeout = _httpTimeout;
-			client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+            var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.GZip })
+            {
+                Timeout = _httpTimeout
+            };
+            client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
 			return client;
 		}

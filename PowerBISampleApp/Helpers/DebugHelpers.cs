@@ -55,7 +55,6 @@ namespace PowerBISampleApp
 			}
 
 			return fileName;
-
 		}
 		#endregion
 	}

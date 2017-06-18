@@ -2,46 +2,43 @@
 
 namespace PowerBISampleApp
 {
-	public abstract class BaseContentPage<T> : ContentPage where T : BaseViewModel, new()
-	{
-		#region Constructors
-		protected BaseContentPage()
-		{
-			BindingContext = new T();
-		}
-		#endregion
+    public abstract class BaseContentPage<T> : ContentPage where T : BaseViewModel, new()
+    {
+        #region Constructors
+        protected BaseContentPage() => BindingContext = new T();
+        #endregion
 
-		#region Properties
-		protected T ViewModel => GetViewModel();
-		protected bool AreEventHandlersSubscribed { get; set; }
-		#endregion
+        #region Properties
+        protected T ViewModel => GetViewModel();
+        protected bool AreEventHandlersSubscribed { get; set; }
+        #endregion
 
-		#region Methods
-		protected abstract void SubscribeEventHandlers();
-				  
-		protected abstract void UnsubscribeEventHandlers();
+        #region Methods
+        protected abstract void SubscribeEventHandlers();
 
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
+        protected abstract void UnsubscribeEventHandlers();
 
-			SubscribeEventHandlers();
-		}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
-		protected override void OnDisappearing()
-		{
-			base.OnDisappearing();
+            SubscribeEventHandlers();
+        }
 
-			UnsubscribeEventHandlers();
-		}
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
 
-		T GetViewModel()
-		{
-			if (BindingContext is T)
-				return BindingContext as T;
+            UnsubscribeEventHandlers();
+        }
 
-			return null;
-		}
-		#endregion
-	}
+        T GetViewModel()
+        {
+            if (BindingContext is T)
+                return BindingContext as T;
+
+            return null;
+        }
+        #endregion
+    }
 }

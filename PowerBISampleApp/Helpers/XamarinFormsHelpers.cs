@@ -7,12 +7,12 @@ namespace PowerBISampleApp
 {
 	public static class XamarinFormsHelpers
 	{
-		#region Fields
-		static object _locker = new object();
-		#endregion
+        #region Fields
+        static readonly object _locker = new object();
+        #endregion
 
-		#region Methods
-		public static Task<T> BeginInvokeOnMainThreadAsync<T>(Func<T> a)
+        #region Methods
+        public static Task<T> BeginInvokeOnMainThreadAsync<T>(Func<T> a)
 		{
 			lock (_locker)
 			{

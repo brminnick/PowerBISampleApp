@@ -31,11 +31,11 @@ namespace PowerBISampleApp
 
 			var relativeLayout = new RelativeLayout();
 
-			Func<RelativeLayout, double> getDetailsButtonWidth = (p) => getChartButton.Measure(relativeLayout.Width, relativeLayout.Height).Request.Width;
-			Func<RelativeLayout, double> getDetailsButtonHeight = (p) => getChartButton.Measure(relativeLayout.Width, relativeLayout.Height).Request.Height;
+			Func<RelativeLayout, double> getDetailsButtonWidth = (p) => getChartButton.Measure(p.Width, p.Height).Request.Width;
+			Func<RelativeLayout, double> getDetailsButtonHeight = (p) => getChartButton.Measure(p.Width, p.Height).Request.Height;
 
-			Func<RelativeLayout, double> getIsRetrievingDataActivityIndicatorWidth = (p) => isRetrievingDataActivityIndicator.Measure(relativeLayout.Width, relativeLayout.Height).Request.Width;
-			Func<RelativeLayout, double> getIsRetrievingDataActivityIndicatorHeight = (p) => isRetrievingDataActivityIndicator.Measure(relativeLayout.Width, relativeLayout.Height).Request.Height;
+			Func<RelativeLayout, double> getIsRetrievingDataActivityIndicatorWidth = (p) => isRetrievingDataActivityIndicator.Measure(p.Width, p.Height).Request.Width;
+			Func<RelativeLayout, double> getIsRetrievingDataActivityIndicatorHeight = (p) => isRetrievingDataActivityIndicator.Measure(p.Width, p.Height).Request.Height;
 
 			relativeLayout.Children.Add(embededDashboardWebView,
 			   Constraint.Constant(0),

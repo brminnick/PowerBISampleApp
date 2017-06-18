@@ -24,8 +24,8 @@ namespace PowerBISampleApp
 		#region Properties
 		public List<ReportsModel> VisibleReportsListData
 		{
-			get { return _visibleReportsDataList; }
-			set { SetProperty(ref _visibleReportsDataList, value); }
+			get =>  _visibleReportsDataList;
+			set => SetProperty(ref _visibleReportsDataList, value);
 		}
 		#endregion
 	}

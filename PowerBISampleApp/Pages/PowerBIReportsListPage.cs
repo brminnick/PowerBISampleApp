@@ -1,43 +1,56 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
-	public class PowerBIReportsListPage : BaseContentPage<PowerBIReportsListViewModel>
-	{
-		#region Constructors
-		public PowerBIReportsListPage()
-		{
-			var groupListView = new ListView
-			{
-				ItemTemplate = new DataTemplate(typeof(GroupListImageCell)),
-				SeparatorVisibility = SeparatorVisibility.None
-			};
-			groupListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.VisibleReportsListData));
-			groupListView.ItemTapped += async (sender, e) =>
-			{
-				groupListView.SelectedItem = null;
+    public class PowerBIReportsListPage : BaseContentPage<PowerBIReportsListViewModel>
+    {
+        #region Constant Fields
+        readonly ListView _groupListView;
+        #endregion
 
-				var selectedReportsModel = e.Item as ReportsModel;
+        #region Constructors
+        public PowerBIReportsListPage()
+        {
+            _groupListView = new ListView
+            {
+                ItemTemplate = new DataTemplate(typeof(GroupListImageCell)),
+                SeparatorVisibility = SeparatorVisibility.None
+            };
+            _groupListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.VisibleReportsListData));
+
+            Title = "Reports List";
+
+            Content = _groupListView;
+        }
+        #endregion
+
+        #region Methods
+        protected override void SubscribeEventHandlers()
+        {
+            _groupListView.ItemTapped += HandleItemTapped;
+
+            AreEventHandlersSubscribed = true;
+        }
+
+        protected override void UnsubscribeEventHandlers()
+        {
+            _groupListView.ItemTapped -= HandleItemTapped;
+
+            AreEventHandlersSubscribed = false;
+        }
+
+		void HandleItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			var selectedReportsModel = e.Item as ReportsModel;
+
+			Device.BeginInvokeOnMainThread(async () =>
+			{
+				_groupListView.SelectedItem = null;
 
 				await Navigation.PushAsync(new PowerBIWebViewPage(selectedReportsModel?.WebUrl));
-			};
-
-			Title = "Reports List";
-
-			Content = groupListView;
+			});
 		}
-		#endregion
-
-		#region Methods
-		protected override void SubscribeEventHandlers()
-		{
-			AreEventHandlersSubscribed = true;
-		}
-
-		protected override void UnsubscribeEventHandlers()
-		{
-			AreEventHandlersSubscribed = false;
-		}
-		#endregion
-	}
+        #endregion
+    }
 }
