@@ -15,14 +15,10 @@ namespace PowerBISampleApp.iOS
 					return rootController;
 
 				if (rootController.PresentedViewController is UINavigationController)
-				{
 					return ((UINavigationController)rootController.PresentedViewController).TopViewController;
-				}
 
 				if (rootController.PresentedViewController is UITabBarController)
-				{
 					return ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
-				}
 
 				return rootController.PresentedViewController;
 			}).Result;
