@@ -14,9 +14,9 @@
 		<Folder Include="Views\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
 	  <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
 	  <PackageReference Include="Xam.Plugins.Settings" Version="3.0.1" />
-	  <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.16.0" />
+	  <PackageReference Include="Xamarin.Forms" Version="2.4.0.275-pre3" />
+	  <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.16.1" />
 	</ItemGroup>
 </Project>
