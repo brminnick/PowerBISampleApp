@@ -4,12 +4,20 @@ namespace PowerBISampleApp
 {
     public abstract class BaseContentPage<T> : ContentPage where T : BaseViewModel, new()
     {
+        #region Fields
+        T _viewModel;
+        #endregion
+
         #region Constructors
-        protected BaseContentPage() => BindingContext = new T();
+        protected BaseContentPage()
+        {
+            BindingContext = ViewModel;
+            this.SetBinding(IsBusyProperty, nameof(BaseViewModel.IsInternetConnectionActive));
+        }
         #endregion
 
         #region Properties
-        protected T ViewModel => GetViewModel();
+        protected T ViewModel => _viewModel ?? (_viewModel = new T());
         protected bool AreEventHandlersSubscribed { get; set; }
         #endregion
 
@@ -30,14 +38,6 @@ namespace PowerBISampleApp
             base.OnDisappearing();
 
             UnsubscribeEventHandlers();
-        }
-
-        T GetViewModel()
-        {
-            if (BindingContext is T)
-                return BindingContext as T;
-
-            return null;
         }
         #endregion
     }
