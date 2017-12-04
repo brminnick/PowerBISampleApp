@@ -12,7 +12,7 @@ namespace PowerBISampleApp.iOS
 	public class Authenticator_iOS : IAuthenticator
 	{
 		#region Methods
-		public Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri)
+		public async Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri)
 		{
 			var authContext = new AuthenticationContext(authority);
 
@@ -20,10 +20,10 @@ namespace PowerBISampleApp.iOS
 				authContext = new AuthenticationContext(authContext?.TokenCache?.ReadItems()?.FirstOrDefault()?.Authority);
 
 			var uri = new Uri(returnUri);
-			var controller = HelperMethods.GetVisibleViewController();
+			var controller = await HelperMethods.GetVisibleViewController();
 			var platformParams = new PlatformParameters(controller);
 
-			return authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
+			return await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
 		}
 		#endregion
 	}

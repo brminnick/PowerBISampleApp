@@ -12,7 +12,6 @@
 		<Folder Include="Services\" />
 		<Folder Include="ViewModels\" />
 		<Folder Include="Views\" />
-		<Folder Include="Services\New Folder\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
