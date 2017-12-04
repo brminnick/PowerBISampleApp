@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Windows.Input;
+using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
+
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
@@ -8,17 +11,11 @@ namespace PowerBISampleApp
 	{
 		#region Fields
 		List<ReportsModel> _visibleReportsDataList;
-		#endregion
+        ICommand _initializePowerBIReportsViewModelCommand;
+        #endregion
 
-		#region Constructors
-		public PowerBIReportsListViewModel()
-		{
-			Task.Run(async () =>
-			{
-				var rootObject = await PowerBIService.GetPowerBIData<ReportsRootObjectModel>(AzureConstants.PowerBIReportsUrl);
-				VisibleReportsListData = rootObject.ReportsModelList.OrderBy(x => x.Name).ToList();
-			});
-		}
+        #region Constructors
+        public PowerBIReportsListViewModel() => InitializePowerBIReportsListViewModelCommand?.Execute(null);
 		#endregion
 
 		#region Properties
@@ -27,6 +24,13 @@ namespace PowerBISampleApp
 			get =>  _visibleReportsDataList;
 			set => SetProperty(ref _visibleReportsDataList, value);
 		}
+
+        ICommand InitializePowerBIReportsListViewModelCommand => _initializePowerBIReportsViewModelCommand ??
+            (_initializePowerBIReportsViewModelCommand = new Command(async () =>
+            {
+                var rootObject = await PowerBIService.GetPowerBIData<ReportsRootObjectModel>(AzureConstants.PowerBIReportsUrl);
+                VisibleReportsListData = rootObject.ReportsModelList.OrderBy(x => x.Name).ToList();
+            }));
 		#endregion
 	}
 }
