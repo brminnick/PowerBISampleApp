@@ -20,11 +20,10 @@ namespace PowerBISampleApp.iOS
 				authContext = new AuthenticationContext(authContext?.TokenCache?.ReadItems()?.FirstOrDefault()?.Authority);
 
 			var uri = new Uri(returnUri);
-			var controller = HelperMethods.GetVisibleViewController();
+			var controller = await HelperMethods.GetVisibleViewController();
 			var platformParams = new PlatformParameters(controller);
 
-			var authResult = await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
-			return authResult;
+			return await authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
 		}
 		#endregion
 	}
