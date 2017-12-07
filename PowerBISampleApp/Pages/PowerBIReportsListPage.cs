@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using Microsoft.PowerBI.Api.V2.Models;
 
 namespace PowerBISampleApp
 {
@@ -26,31 +27,21 @@ namespace PowerBISampleApp
         #endregion
 
         #region Methods
-        protected override void SubscribeEventHandlers()
+        protected override void SubscribeEventHandlers() => _groupListView.ItemTapped += HandleItemTapped;
+
+        protected override void UnsubscribeEventHandlers() => _groupListView.ItemTapped -= HandleItemTapped;
+
+        void HandleItemTapped(object sender, ItemTappedEventArgs e)
         {
-            _groupListView.ItemTapped += HandleItemTapped;
+            var selectedReportsModel = e.Item as Report;
 
-            AreEventHandlersSubscribed = true;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                _groupListView.SelectedItem = null;
+
+                await Navigation.PushAsync(new PowerBIWebViewPage(selectedReportsModel?.WebUrl));
+            });
         }
-
-        protected override void UnsubscribeEventHandlers()
-        {
-            _groupListView.ItemTapped -= HandleItemTapped;
-
-            AreEventHandlersSubscribed = false;
-        }
-
-		void HandleItemTapped(object sender, ItemTappedEventArgs e)
-		{
-			var selectedReportsModel = e.Item as ReportsModel;
-
-			Device.BeginInvokeOnMainThread(async () =>
-			{
-				_groupListView.SelectedItem = null;
-
-				await Navigation.PushAsync(new PowerBIWebViewPage(selectedReportsModel?.WebUrl));
-			});
-		}
         #endregion
     }
 }
