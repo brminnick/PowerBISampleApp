@@ -1,15 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Net.Http.Headers;
 
 using Microsoft.Rest;
 using Microsoft.PowerBI.Api.V2;
-
-using Newtonsoft.Json;
 
 using Plugin.Settings;
 
@@ -26,6 +19,7 @@ namespace PowerBISampleApp
         #endregion
 
         #region Fields
+        static int _networkIndicatorCount = 0;
         static PowerBIClient _powerBIClient;
         #endregion
 
@@ -47,6 +41,7 @@ namespace PowerBISampleApp
             get
             {
                 DateTimeOffset expirationAsDateTimeOffset;
+
                 var expirationAsString = CrossSettings.Current.GetValueOrDefault(_accessTokenExpiresOnKey, string.Empty);
 
                 if (string.IsNullOrEmpty(expirationAsString))
@@ -76,22 +71,44 @@ namespace PowerBISampleApp
             return _powerBIClient;
         }
 
+        protected static void UpdateActivityIndicatorStatus(bool isActivityIndicatorDisplayed)
+        {
+            if (isActivityIndicatorDisplayed)
+            {
+                XamarinFormsHelpers.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = true);
+                _networkIndicatorCount++;
+            }
+            else if (--_networkIndicatorCount <= 0)
+            {
+                XamarinFormsHelpers.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = false);
+                _networkIndicatorCount = 0;
+            }
+        }
+
         static async Task Authenticate()
         {
             if (string.IsNullOrWhiteSpace(AccessToken)
-                    || DateTimeOffset.Now.CompareTo(AccessTokenExpiresOnDateTimeOffset) >= 1
-                    || string.IsNullOrWhiteSpace(AccessTokenType))
+                    || string.IsNullOrWhiteSpace(AccessTokenType)
+                    || DateTimeOffset.UtcNow.CompareTo(AccessTokenExpiresOnDateTimeOffset) >= 1)
             {
+                UpdateActivityIndicatorStatus(true);
 
-                var authenticationResult = await DependencyService.Get<IAuthenticator>()?.Authenticate(
-                            AzureConstants.OAuth2Authority,
-                            AzureConstants.Resource,
-                            AzureConstants.ClientId,
-                            AzureConstants.RedirectURL);
+                try
+                {
+                    var authenticationResult = await DependencyService.Get<IAuthenticator>()?.Authenticate(
+                                AzureConstants.OAuth2Authority,
+                                AzureConstants.Resource,
+                                AzureConstants.ClientId,
+                                AzureConstants.RedirectURL);
 
-                AccessToken = authenticationResult.AccessToken;
-                AccessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
-                AccessTokenType = authenticationResult.AccessTokenType;
+                    AccessToken = authenticationResult.AccessToken;
+                    AccessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
+                    AccessTokenType = authenticationResult.AccessTokenType;
+                }
+                finally
+                {
+                    UpdateActivityIndicatorStatus(false);
+                }
             }
         }
         #endregion

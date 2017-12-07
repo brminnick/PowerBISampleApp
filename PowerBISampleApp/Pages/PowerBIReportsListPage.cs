@@ -1,6 +1,8 @@
 ﻿using System;
-using Xamarin.Forms;
+
 using Microsoft.PowerBI.Api.V2.Models;
+
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {

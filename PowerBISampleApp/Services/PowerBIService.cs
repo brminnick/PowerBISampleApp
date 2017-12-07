@@ -17,9 +17,23 @@ namespace PowerBISampleApp
         #region Methods
         public static async Task<ODataResponseListReport> GetReports()
         {
-            var client = await GetPowerBIClient();
+            UpdateActivityIndicatorStatus(true);
 
-            return await client.Reports.GetReportsAsync();
+            try
+            {
+                var client = await GetPowerBIClient();
+
+                return await client.Reports.GetReportsAsync();
+            }
+            catch(Exception e)
+            {
+                DebugHelpers.PrintException(e);
+                return null;
+            }
+            finally
+            {
+                UpdateActivityIndicatorStatus(false);
+            }
         }
         #endregion
     }
