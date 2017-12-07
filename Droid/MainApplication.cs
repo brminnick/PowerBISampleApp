@@ -1,18 +1,17 @@
 using System;
 
-using Android.App;
 using Android.OS;
+using Android.App;
 using Android.Runtime;
+
 using Plugin.CurrentActivity;
 
 namespace PowerBISampleApp.Droid
 {
-	//You can specify additional application information in this attribute
     [Application]
     public class MainApplication : Application, Application.IActivityLifecycleCallbacks
     {
-        public MainApplication(IntPtr handle, JniHandleOwnership transer)
-          :base(handle, transer)
+        public MainApplication(IntPtr handle, JniHandleOwnership transer) : base(handle, transer)
         {
         }
 
@@ -20,7 +19,6 @@ namespace PowerBISampleApp.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-            //A great place to initialize Xamarin.Insights and Dependency Services!
         }
 
         public override void OnTerminate()
@@ -29,10 +27,8 @@ namespace PowerBISampleApp.Droid
             UnregisterActivityLifecycleCallbacks(this);
         }
 
-        public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
-        {
+        public void OnActivityCreated(Activity activity, Bundle savedInstanceState) =>
             CrossCurrentActivity.Current.Activity = activity;
-        }
 
         public void OnActivityDestroyed(Activity activity)
         {
@@ -42,19 +38,15 @@ namespace PowerBISampleApp.Droid
         {
         }
 
-        public void OnActivityResumed(Activity activity)
-        {
+        public void OnActivityResumed(Activity activity) =>
             CrossCurrentActivity.Current.Activity = activity;
-        }
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
         {
         }
 
-        public void OnActivityStarted(Activity activity)
-        {
+        public void OnActivityStarted(Activity activity) =>
             CrossCurrentActivity.Current.Activity = activity;
-        }
 
         public void OnActivityStopped(Activity activity)
         {
