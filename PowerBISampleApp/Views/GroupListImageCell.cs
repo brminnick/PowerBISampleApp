@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.PowerBI.Api.V2.Models;
+
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
@@ -6,7 +8,7 @@ namespace PowerBISampleApp
 	{
 		public GroupListImageCell()
 		{
-			var model = BindingContext as ReportsModel;
+			var model = BindingContext as Report;
 
 			this.SetBinding(DetailProperty, nameof(model.Id));
 			this.SetBinding(TextProperty, nameof(model.Name));

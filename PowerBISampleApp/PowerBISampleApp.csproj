@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard1.3</TargetFramework>
-		<PackageTargetFallback>portable-win+net45+wp8+win81+wpa8</PackageTargetFallback>
+		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="Constants\" />
 		<Folder Include="Helpers\" />
-		<Folder Include="Models\" />
 		<Folder Include="Pages\" />
 		<Folder Include="Services\" />
 		<Folder Include="ViewModels\" />
@@ -18,5 +16,6 @@
 	  <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.17.2" />
 	  <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
 	  <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
+	  <PackageReference Include="Microsoft.PowerBI.Api" Version="2.0.8" />
 	</ItemGroup>
 </Project>

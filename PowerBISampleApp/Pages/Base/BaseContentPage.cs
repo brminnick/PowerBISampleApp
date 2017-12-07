@@ -1,24 +1,21 @@
-﻿using Xamarin.Forms;
+﻿using System;
+
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
     public abstract class BaseContentPage<T> : ContentPage where T : BaseViewModel, new()
     {
         #region Fields
-        T _viewModel;
+        Lazy<T> _viewModelHolder = new Lazy<T>();
         #endregion
 
         #region Constructors
-        protected BaseContentPage()
-        {
-            BindingContext = ViewModel;
-            this.SetBinding(IsBusyProperty, nameof(BaseViewModel.IsInternetConnectionActive));
-        }
+        protected BaseContentPage() => BindingContext = ViewModel;
         #endregion
 
         #region Properties
-        protected T ViewModel => _viewModel ?? (_viewModel = new T());
-        protected bool AreEventHandlersSubscribed { get; set; }
+        protected T ViewModel => _viewModelHolder.Value;
         #endregion
 
         #region Methods
