@@ -21,7 +21,7 @@ namespace PowerBISampleApp
 
             try
             {
-                var client = await GetPowerBIClient();
+                var client = await GetPowerBIClient().ConfigureAwait(false);
 
                 return await client.Reports.GetReportsAsync();
             }

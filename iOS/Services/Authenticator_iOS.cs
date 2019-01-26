@@ -16,8 +16,8 @@ namespace PowerBISampleApp.iOS
 		{
 			var authContext = new AuthenticationContext(authority);
 
-			if (authContext?.TokenCache?.ReadItems()?.Any() == true)
-				authContext = new AuthenticationContext(authContext?.TokenCache?.ReadItems()?.FirstOrDefault()?.Authority);
+			if (authContext?.TokenCache?.ReadItems()?.Any() is true)
+				authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
 
 			var uri = new Uri(returnUri);
 			var controller = await HelperMethods.GetVisibleViewController();

@@ -22,10 +22,10 @@ namespace PowerBISampleApp.Droid
             var authContext = new AuthenticationContext(authority);
             var platformParams = new PlatformParameters(CrossCurrentActivity.Current.Activity);
 
-            if (authContext?.TokenCache?.ReadItems()?.Any() == true)
-                authContext = new AuthenticationContext(authContext?.TokenCache?.ReadItems()?.FirstOrDefault()?.Authority);
+            if (authContext?.TokenCache?.ReadItems()?.Any() is true)
+                authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
 
-            return authContext?.AcquireTokenAsync(resource, clientId, uri, platformParams);
+            return authContext.AcquireTokenAsync(resource, clientId, uri, platformParams);
         }
         #endregion
     }

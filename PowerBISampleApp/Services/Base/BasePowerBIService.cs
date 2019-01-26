@@ -12,12 +12,6 @@ namespace PowerBISampleApp
 {
     abstract class BasePowerBIService
     {
-        #region Constant Fields
-        const string _accessTokenKey = "TokenKey";
-        const string _accessTokenExpiresOnKey = "TokenExpirationDateTimeOffsetKey";
-        const string _accessTokenTypeKey = "AccessTokenTypeKey";
-        #endregion
-
         #region Fields
         static int _networkIndicatorCount = 0;
         static PowerBIClient _powerBIClient;
@@ -26,14 +20,14 @@ namespace PowerBISampleApp
         #region Properties
         static string AccessToken
         {
-            get => CrossSettings.Current.GetValueOrDefault(_accessTokenKey, string.Empty);
-            set => CrossSettings.Current.AddOrUpdateValue(_accessTokenKey, value);
+            get => CrossSettings.Current.GetValueOrDefault(nameof(AccessToken), string.Empty);
+            set => CrossSettings.Current.AddOrUpdateValue(nameof(AccessToken), value);
         }
 
         static string AccessTokenType
         {
-            get => CrossSettings.Current.GetValueOrDefault(_accessTokenTypeKey, string.Empty);
-            set => CrossSettings.Current.AddOrUpdateValue(_accessTokenTypeKey, value);
+            get => CrossSettings.Current.GetValueOrDefault(nameof(AccessTokenType), string.Empty);
+            set => CrossSettings.Current.AddOrUpdateValue(nameof(AccessTokenType), value);
         }
 
         static DateTimeOffset AccessTokenExpiresOnDateTimeOffset
@@ -42,7 +36,7 @@ namespace PowerBISampleApp
             {
                 DateTimeOffset expirationAsDateTimeOffset;
 
-                var expirationAsString = CrossSettings.Current.GetValueOrDefault(_accessTokenExpiresOnKey, string.Empty);
+                var expirationAsString = CrossSettings.Current.GetValueOrDefault(nameof(AccessTokenExpiresOnDateTimeOffset), string.Empty);
 
                 if (string.IsNullOrEmpty(expirationAsString))
                     expirationAsDateTimeOffset = new DateTimeOffset(0, 0, 0, 0, 0, 0, TimeSpan.FromMilliseconds(0));
@@ -54,15 +48,15 @@ namespace PowerBISampleApp
             set
             {
                 var dateTimeOffsetAsString = value.ToString();
-                CrossSettings.Current.AddOrUpdateValue(_accessTokenExpiresOnKey, dateTimeOffsetAsString);
+                CrossSettings.Current.AddOrUpdateValue(nameof(AccessTokenExpiresOnDateTimeOffset), dateTimeOffsetAsString);
             }
         }
         #endregion
 
         #region Methods
-        protected static async Task<PowerBIClient> GetPowerBIClient()
+        protected static async ValueTask<PowerBIClient> GetPowerBIClient()
         {
-            if (_powerBIClient == null)
+            if (_powerBIClient is null)
             {
                 await Authenticate();
                 _powerBIClient = new PowerBIClient(new TokenCredentials(AccessToken, AccessTokenType));
@@ -98,7 +92,7 @@ namespace PowerBISampleApp
                     var authenticationResult = await DependencyService.Get<IAuthenticator>()?.Authenticate(
                                 AzureConstants.OAuth2Authority,
                                 AzureConstants.Resource,
-                                AzureConstants.ClientId,
+                                AzureConstants.ApplicationId,
                                 AzureConstants.RedirectURL);
 
                     AccessToken = authenticationResult.AccessToken;
