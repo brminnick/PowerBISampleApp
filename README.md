@@ -8,6 +8,8 @@ Here is the configuration of the Native App Registration that is being used for 
 
 It is also where you'll find the `ApplicationId` and `RedirectUrl` for your Native App Registration.
 
+For the complete walkthrough on how to embed PowerBI into your app, follow these steps: ["Tutorial: Embed a Power BI report, dashboard, or tile into an application for your customers"](https://docs.microsoft.com/power-bi/developer/embed-sample-for-customers/?WT.mc_id=none-github-bramin).
+
 ## Azure AD App Registration
 
 In Azure AD, create follow the App Registration process to create a **Native** Application Type
