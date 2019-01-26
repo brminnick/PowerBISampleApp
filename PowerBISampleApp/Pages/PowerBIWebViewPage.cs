@@ -2,25 +2,13 @@
 
 namespace PowerBISampleApp
 {
-    public class PowerBIWebViewPage : BaseContentPage<BaseViewModel>
+    public class PowerBIWebViewPage : ContentPage
     {
-        #region Constructors
         public PowerBIWebViewPage(string webpageUrl)
         {
             Title = "WebView";
 
             Content = new WebView { Source = webpageUrl };
         }
-
-        protected override void SubscribeEventHandlers()
-        {
-
-        }
-
-        protected override void UnsubscribeEventHandlers()
-        {
-
-        }
-        #endregion
     }
 }

@@ -18,5 +18,6 @@
 	  <PackageReference Include="Xamarin.Forms" Version="3.4.0.1029999" />
 	  <PackageReference Include="Microsoft.PowerBI.Api" Version="2.3.0" />
 	  <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
+	  <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.0" />
 	</ItemGroup>
 </Project>

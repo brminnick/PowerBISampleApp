@@ -1,35 +1,41 @@
 ﻿using System.Threading.Tasks;
-
 using UIKit;
+using Xamarin.Forms;
 
 namespace PowerBISampleApp.iOS
 {
-	public static class HelperMethods
-	{
-		#region Methods
+    public static class HelperMethods
+    {
         public static Task<UIViewController> GetVisibleViewController()
         {
-            return XamarinFormsHelpers.BeginInvokeOnMainThreadAsync(() =>
+            var tcs = new TaskCompletionSource<UIViewController>();
+
+            Device.BeginInvokeOnMainThread(() =>
             {
                 var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
                 switch (rootController.PresentedViewController)
                 {
                     case UINavigationController navigationController:
-                        return navigationController.TopViewController;
+                        tcs.SetResult(navigationController.TopViewController);
+                        break;
 
                     case UITabBarController tabBarController:
-                        return tabBarController.SelectedViewController;
+                        tcs.SetResult(tabBarController.SelectedViewController);
+                        break;
 
                     case null:
-                        return rootController;
+                        tcs.SetResult(rootController);
+                        break;
 
                     default:
-                        return rootController.PresentedViewController;
+                        tcs.SetResult(rootController.PresentedViewController);
+                        break;
                 }
             });
+
+            return tcs.Task;
         }
-		#endregion
-	}
+    }
 }
 

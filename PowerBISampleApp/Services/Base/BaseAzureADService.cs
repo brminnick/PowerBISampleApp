@@ -38,7 +38,7 @@ namespace PowerBISampleApp
 
                 var expirationAsString = CrossSettings.Current.GetValueOrDefault(nameof(AccessTokenExpiresOnDateTimeOffset), string.Empty);
 
-                if (string.IsNullOrEmpty(expirationAsString))
+                if (string.IsNullOrWhiteSpace(expirationAsString))
                     expirationAsDateTimeOffset = new DateTimeOffset(0, 0, 0, 0, 0, 0, TimeSpan.FromMilliseconds(0));
                 else
                     DateTimeOffset.TryParse(expirationAsString, out expirationAsDateTimeOffset);
@@ -58,7 +58,7 @@ namespace PowerBISampleApp
         {
             if (_powerBIClient is null)
             {
-                await Authenticate();
+                await Authenticate().ConfigureAwait(false);
                 _powerBIClient = new PowerBIClient(new TokenCredentials(AccessToken, AccessTokenType));
             }
 
@@ -69,12 +69,12 @@ namespace PowerBISampleApp
         {
             if (isActivityIndicatorDisplayed)
             {
-                XamarinFormsHelpers.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = true);
+                Device.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = true);
                 _networkIndicatorCount++;
             }
             else if (--_networkIndicatorCount <= 0)
             {
-                XamarinFormsHelpers.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = false);
+                Device.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = false);
                 _networkIndicatorCount = 0;
             }
         }
