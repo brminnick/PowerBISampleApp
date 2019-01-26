@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Net.Http.Headers;
 
-using Microsoft.Rest;
 using Microsoft.PowerBI.Api.V2;
 using Microsoft.PowerBI.Api.V2.Models;
-
-using Plugin.Settings;
-
-using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {

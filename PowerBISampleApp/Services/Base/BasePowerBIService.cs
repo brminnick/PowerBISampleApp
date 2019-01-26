@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Rest;
 using Microsoft.PowerBI.Api.V2;
 
-using Plugin.Settings;
-
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace PowerBISampleApp
 {
@@ -20,14 +19,14 @@ namespace PowerBISampleApp
         #region Properties
         static string AccessToken
         {
-            get => CrossSettings.Current.GetValueOrDefault(nameof(AccessToken), string.Empty);
-            set => CrossSettings.Current.AddOrUpdateValue(nameof(AccessToken), value);
+            get => Preferences.Get(nameof(AccessToken), string.Empty);
+            set => Preferences.Set(nameof(AccessToken), value);
         }
 
         static string AccessTokenType
         {
-            get => CrossSettings.Current.GetValueOrDefault(nameof(AccessTokenType), string.Empty);
-            set => CrossSettings.Current.AddOrUpdateValue(nameof(AccessTokenType), value);
+            get => Preferences.Get(nameof(AccessTokenType), string.Empty);
+            set => Preferences.Set(nameof(AccessTokenType), value);
         }
 
         static DateTimeOffset AccessTokenExpiresOnDateTimeOffset
@@ -36,7 +35,7 @@ namespace PowerBISampleApp
             {
                 DateTimeOffset expirationAsDateTimeOffset;
 
-                var expirationAsString = CrossSettings.Current.GetValueOrDefault(nameof(AccessTokenExpiresOnDateTimeOffset), string.Empty);
+                var expirationAsString = Preferences.Get(nameof(AccessTokenExpiresOnDateTimeOffset), string.Empty);
 
                 if (string.IsNullOrWhiteSpace(expirationAsString))
                     expirationAsDateTimeOffset = new DateTimeOffset(0, 0, 0, 0, 0, 0, TimeSpan.FromMilliseconds(0));
@@ -48,7 +47,7 @@ namespace PowerBISampleApp
             set
             {
                 var dateTimeOffsetAsString = value.ToString();
-                CrossSettings.Current.AddOrUpdateValue(nameof(AccessTokenExpiresOnDateTimeOffset), dateTimeOffsetAsString);
+                Preferences.Set(nameof(AccessTokenExpiresOnDateTimeOffset), dateTimeOffsetAsString);
             }
         }
         #endregion
