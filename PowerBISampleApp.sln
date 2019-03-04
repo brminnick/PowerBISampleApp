@@ -1,9 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBISampleApp.iOS", "iOS\PowerBISampleApp.iOS.csproj", "{5B087A95-FFE7-4542-8FDC-7F26126C18FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBISampleApp.iOS", "PowerBISampleApp.iOS\PowerBISampleApp.iOS.csproj", "{5B087A95-FFE7-4542-8FDC-7F26126C18FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBISampleApp.Droid", "Droid\PowerBISampleApp.Droid.csproj", "{CABE9E3B-6EDE-49B7-B419-DA3F33D24AFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBISampleApp.Droid", "PowerBISampleApp.Droid\PowerBISampleApp.Droid.csproj", "{CABE9E3B-6EDE-49B7-B419-DA3F33D24AFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBISampleApp", "PowerBISampleApp\PowerBISampleApp.csproj", "{89F44FFD-8A35-409C-A399-9EEF22E78B58}"
 EndProject
