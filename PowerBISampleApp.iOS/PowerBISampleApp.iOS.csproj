@@ -89,9 +89,9 @@
         <PackageReference Include="Microsoft.PowerBI.Api" Version="2.5.0" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.0" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
         <PackageReference Include="Xamarin.Forms">
-          <Version>3.5.0.169047</Version>
+          <Version>3.6.0.293080</Version>
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
@@ -110,7 +110,6 @@
     <ItemGroup>
         <None Include="Info.plist" />
         <None Include="Entitlements.plist" />
-        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Main.cs" />
