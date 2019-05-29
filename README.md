@@ -16,6 +16,12 @@ In Azure AD, create follow the App Registration process to create a **Native** A
 
 ![App Registration](https://user-images.githubusercontent.com/13558917/51790136-4138fa00-2189-11e9-812a-b6ccd1d0c981.png)
 
+### Azure AD App, API Permissions
+
+In the Native Application created in Azure AD, select **API permissions** and add permissions for Power BI Services
+
+![API Permissions](https://user-images.githubusercontent.com/13558917/58598341-c401bc80-8230-11e9-8a91-e8158b801816.png)
+
 ### ApplicationID
 
 This is the value you'll use for [`AzureConstants.ApplicationId`](/PowerBISampleApp/Constants/AzureConstants.cs)
