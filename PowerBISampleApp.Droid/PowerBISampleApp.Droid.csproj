@@ -48,9 +48,9 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="4.5.1" />
-        <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
-        <PackageReference Include="Microsoft.PowerBI.Api" Version="2.5.0" />
+        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.0.5" />
+        <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
+        <PackageReference Include="Microsoft.PowerBI.Api" Version="2.6.0" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.1" />
         <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
