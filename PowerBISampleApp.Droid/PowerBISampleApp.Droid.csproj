@@ -30,6 +30,8 @@
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
         <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
+        <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+        <AndroidDexTool>d8</AndroidDexTool>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -42,23 +44,31 @@
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
         <AndroidTlsProvider>btls</AndroidTlsProvider>
+        <BundleAssemblies>true</BundleAssemblies>
+        <AotAssemblies>true</AotAssemblies>
+        <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+        <EnableLLVM>true</EnableLLVM>
+        <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+        <AndroidDexTool>d8</AndroidDexTool>
+        <AndroidLinkTool>r8</AndroidLinkTool>
+        <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.0.5" />
-        <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
-        <PackageReference Include="Microsoft.PowerBI.Api" Version="2.6.0" />
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="2.1.1" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.0" />
+        <PackageReference Include="Xamarin.Forms" Version="4.2.0.673161-pre3" />
+        <PackageReference Include="Microsoft.PowerBI.Api" Version="2.9.0" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="3.1.0-pre3" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
         <PackageReference Include="Plugin.CurrentActivity">
           <Version>2.1.0.4</Version>
         </PackageReference>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-          <Version>4.5.0</Version>
+          <Version>4.5.2</Version>
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
