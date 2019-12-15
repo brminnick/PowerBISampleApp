@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 
@@ -6,35 +8,38 @@ namespace PowerBISampleApp.iOS
 {
     public static class HelperMethods
     {
-        public static Task<UIViewController> GetVisibleViewController()
+        public static async ValueTask<UIViewController> GetVisibleViewControllerAsync()
         {
-            var tcs = new TaskCompletionSource<UIViewController>();
+            if (Xamarin.Essentials.MainThread.IsMainThread)
+                return GetVisibleViewController();
 
-            Device.BeginInvokeOnMainThread(() =>
+            return await Device.InvokeOnMainThreadAsync(GetVisibleViewController).ConfigureAwait(false);
+        }
+
+        public static UIViewController GetVisibleViewController()
+        {
+            UIViewController? viewController = null;
+
+            var window = UIApplication.SharedApplication.KeyWindow;
+
+            if (window.WindowLevel == UIWindowLevel.Normal)
+                viewController = window.RootViewController;
+
+            if (viewController is null)
             {
-                var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+                window = UIApplication.SharedApplication
+                    .Windows
+                    .OrderByDescending(w => w.WindowLevel)
+                    .FirstOrDefault(w => w.RootViewController != null && w.WindowLevel == UIWindowLevel.Normal);
 
-                switch (rootController.PresentedViewController)
-                {
-                    case UINavigationController navigationController:
-                        tcs.SetResult(navigationController.TopViewController);
-                        break;
 
-                    case UITabBarController tabBarController:
-                        tcs.SetResult(tabBarController.SelectedViewController);
-                        break;
+                viewController = window?.RootViewController ?? throw new InvalidOperationException("Could not find current view controller.");
+            }
 
-                    case null:
-                        tcs.SetResult(rootController);
-                        break;
+            while (viewController.PresentedViewController != null)
+                viewController = viewController.PresentedViewController;
 
-                    default:
-                        tcs.SetResult(rootController.PresentedViewController);
-                        break;
-                }
-            });
-
-            return tcs.Task;
+            return viewController;
         }
     }
 }

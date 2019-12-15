@@ -1,16 +1,22 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace PowerBISampleApp
 {
-	public class App : Application
+	public class App : Xamarin.Forms.Application
 	{
 		public App()
 		{
-			MainPage = new NavigationPage(new PowerBIReportsListPage())
+			var navigationPage = new Xamarin.Forms.NavigationPage(new PowerBIReportsListPage())
 			{
 				BarTextColor = Color.White,
 				BarBackgroundColor = Color.FromHex("3498db")
 			};
+
+            navigationPage.On<iOS>().SetPrefersLargeTitles(true);
+
+            MainPage = navigationPage;
 		}
 	}
 }

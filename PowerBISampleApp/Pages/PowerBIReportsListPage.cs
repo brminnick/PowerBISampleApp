@@ -1,55 +1,55 @@
-﻿using Microsoft.PowerBI.Api.V2.Models;
-
+﻿using System.Collections;
+using System.Linq;
+using Microsoft.PowerBI.Api.V2.Models;
 using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
     public class PowerBIReportsListPage : BaseContentPage<PowerBIReportsListViewModel>
     {
-        #region Constant Fields
-        ListView _groupListView;
-        #endregion
-
-        #region Constructors
         public PowerBIReportsListPage()
         {
-            _groupListView = new ListView
+            var collectionView = new CollectionView
             {
-                ItemTemplate = new DataTemplate(typeof(GroupListImageCell)),
-                SeparatorVisibility = SeparatorVisibility.None,
-                IsPullToRefreshEnabled = true
+                SelectionMode = SelectionMode.Single,
+                ItemTemplate = new GroupListDataTemplate()
             };
-            _groupListView.ItemTapped += HandleItemTapped;
-            _groupListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.VisibleReportsListData));
-            _groupListView.SetBinding(ListView.IsRefreshingProperty, nameof(ViewModel.IsReportsListRefreshing));
-            _groupListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshReportsListCommand));
+            collectionView.SelectionChanged += HandleSelectionChanged;
+            collectionView.SetBinding(CollectionView.ItemsSourceProperty, nameof(PowerBIReportsListViewModel.VisibleReportsListData));
+
+            var refreshView = new RefreshView
+            {
+                Content = collectionView
+            };
+            refreshView.SetBinding(RefreshView.IsRefreshingProperty, nameof(PowerBIReportsListViewModel.IsReportsListRefreshing));
+            refreshView.SetBinding(RefreshView.CommandProperty, nameof(PowerBIReportsListViewModel.RefreshReportsListCommand));
 
             Title = "Reports List";
 
-            Content = _groupListView;
+            Content = refreshView;
         }
-        #endregion
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            _groupListView.BeginRefresh();
+            if (Content is RefreshView refreshView
+                && refreshView.Content is CollectionView collectionView
+                && IsNullOrEmpty(collectionView.ItemsSource))
+            {
+                refreshView.IsRefreshing = true;
+            }
+
+            static bool IsNullOrEmpty(in IEnumerable? enumerable) => !enumerable?.GetEnumerator().MoveNext() ?? true;
         }
 
-        #region Methods
-        void HandleItemTapped(object sender, ItemTappedEventArgs e)
+        async void HandleSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListView groupListView 
-                    && e.Item is Report tappedReport)
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await Navigation.PushAsync(new PowerBIWebViewPage(tappedReport?.WebUrl));
-                    groupListView.SelectedItem = null;
-                });
-            }
+            var collectionView = (CollectionView)sender;
+            collectionView.SelectedItem = null;
+
+            if (e.CurrentSelection.FirstOrDefault() is Report tappedReport)
+                await Navigation.PushAsync(new PowerBIWebViewPage(tappedReport.WebUrl));
         }
-        #endregion
     }
 }

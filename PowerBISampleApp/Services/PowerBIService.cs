@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Microsoft.PowerBI.Api.V2;
 using Microsoft.PowerBI.Api.V2.Models;
 
@@ -8,10 +7,9 @@ namespace PowerBISampleApp
 {
     abstract class PowerBIService : BasePowerBIService
     {
-        #region Methods
         public static async Task<ODataResponseListReport> GetReports()
         {
-            UpdateActivityIndicatorStatus(true);
+            await UpdateActivityIndicatorStatus(true).ConfigureAwait(false);
 
             try
             {
@@ -22,13 +20,12 @@ namespace PowerBISampleApp
             catch(Exception e)
             {
                 DebugHelpers.PrintException(e);
-                return null;
+                return new ODataResponseListReport();
             }
             finally
             {
-                UpdateActivityIndicatorStatus(false);
+                await UpdateActivityIndicatorStatus(false).ConfigureAwait(false);
             }
         }
-        #endregion
     }
 }

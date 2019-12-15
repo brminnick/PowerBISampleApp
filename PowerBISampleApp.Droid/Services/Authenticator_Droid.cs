@@ -13,18 +13,16 @@ namespace PowerBISampleApp.Droid
 {
     public class Authenticator_Droid : IAuthenticator
     {
-        #region Methods
         public Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri)
         {
             var uri = new Uri(returnUri);
             var authContext = new AuthenticationContext(authority);
             var platformParams = new PlatformParameters(CrossCurrentActivity.Current.Activity);
 
-            if (authContext?.TokenCache?.ReadItems()?.Any() is true)
+            if (authContext.TokenCache?.ReadItems()?.Any() is true)
                 authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
 
             return authContext.AcquireTokenAsync(resource, clientId, uri, platformParams);
         }
-        #endregion
     }
 }

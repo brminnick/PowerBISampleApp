@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-
-using Microsoft.Rest;
 using Microsoft.PowerBI.Api.V2;
-
-using Xamarin.Forms;
+using Microsoft.Rest;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace PowerBISampleApp
 {
     abstract class BasePowerBIService
     {
-        #region Fields
-        static int _networkIndicatorCount = 0;
-        static PowerBIClient _powerBIClient;
-        #endregion
+        static int _networkIndicatorCount;
+        static PowerBIClient? _powerBIClient;
 
-        #region Properties
         static string AccessToken
         {
             get => Preferences.Get(nameof(AccessToken), string.Empty);
@@ -50,9 +45,7 @@ namespace PowerBISampleApp
                 Preferences.Set(nameof(AccessTokenExpiresOnDateTimeOffset), dateTimeOffsetAsString);
             }
         }
-        #endregion
 
-        #region Methods
         protected static async ValueTask<PowerBIClient> GetPowerBIClient()
         {
             if (_powerBIClient is null)
@@ -64,17 +57,25 @@ namespace PowerBISampleApp
             return _powerBIClient;
         }
 
-        protected static void UpdateActivityIndicatorStatus(bool isActivityIndicatorDisplayed)
+        protected static async ValueTask UpdateActivityIndicatorStatus(bool isActivityIndicatorDisplayed)
         {
             if (isActivityIndicatorDisplayed)
             {
-                Device.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = true);
                 _networkIndicatorCount++;
+                await updateIsBusy(true).ConfigureAwait(false);
             }
             else if (--_networkIndicatorCount <= 0)
             {
-                Device.BeginInvokeOnMainThread(() => Application.Current.MainPage.IsBusy = false);
                 _networkIndicatorCount = 0;
+                await updateIsBusy(false).ConfigureAwait(false);
+            }
+
+            static async ValueTask updateIsBusy(bool isBusy)
+            {
+                if (MainThread.IsMainThread)
+                    Application.Current.MainPage.IsBusy = isBusy;
+                else
+                    await Device.InvokeOnMainThreadAsync(() => Application.Current.MainPage.IsBusy = isBusy).ConfigureAwait(false);
             }
         }
 
@@ -84,15 +85,15 @@ namespace PowerBISampleApp
                     || string.IsNullOrWhiteSpace(AccessTokenType)
                     || DateTimeOffset.UtcNow.CompareTo(AccessTokenExpiresOnDateTimeOffset) >= 1)
             {
-                UpdateActivityIndicatorStatus(true);
+                await UpdateActivityIndicatorStatus(true).ConfigureAwait(false);
 
                 try
                 {
-                    var authenticationResult = await DependencyService.Get<IAuthenticator>()?.Authenticate(
-                                AzureConstants.OAuth2Authority,
-                                AzureConstants.Resource,
-                                AzureConstants.ApplicationId,
-                                AzureConstants.RedirectURL);
+                    var authenticationResult = await DependencyService.Get<IAuthenticator>().Authenticate(
+                                                        AzureConstants.OAuth2Authority,
+                                                        AzureConstants.Resource,
+                                                        AzureConstants.ApplicationId,
+                                                        AzureConstants.RedirectURL).ConfigureAwait(false);
 
                     AccessToken = authenticationResult.AccessToken;
                     AccessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
@@ -100,10 +101,9 @@ namespace PowerBISampleApp
                 }
                 finally
                 {
-                    UpdateActivityIndicatorStatus(false);
+                    await UpdateActivityIndicatorStatus(false).ConfigureAwait(false);
                 }
             }
         }
-        #endregion
     }
 }
