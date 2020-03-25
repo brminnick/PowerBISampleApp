@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AsyncAwaitBestPractices.MVVM;
-using Microsoft.PowerBI.Api.V2.Models;
+using Microsoft.PowerBI.Api.Models;
 
 namespace PowerBISampleApp
 {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.PowerBI.Api.V2;
-using Microsoft.PowerBI.Api.V2.Models;
+using Microsoft.PowerBI.Api;
+using Microsoft.PowerBI.Api.Models;
 
 namespace PowerBISampleApp
 {
     abstract class PowerBIService : BasePowerBIService
     {
-        public static async Task<ODataResponseListReport> GetReports()
+        public static async Task<Reports> GetReports()
         {
             await UpdateActivityIndicatorStatus(true).ConfigureAwait(false);
 
@@ -15,12 +15,12 @@ namespace PowerBISampleApp
             {
                 var client = await GetPowerBIClient().ConfigureAwait(false);
 
-                return await client.Reports.GetReportsAsync();
+                return client.Reports.GetReports();
             }
             catch(Exception e)
             {
                 DebugHelpers.PrintException(e);
-                return new ODataResponseListReport();
+                return new Reports();
             }
             finally
             {

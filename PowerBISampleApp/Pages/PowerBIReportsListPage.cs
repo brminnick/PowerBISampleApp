@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
-using Microsoft.PowerBI.Api.V2.Models;
+using Microsoft.PowerBI.Api.Models;
 using Xamarin.Forms;
 
 namespace PowerBISampleApp

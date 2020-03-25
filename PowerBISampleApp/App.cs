@@ -8,6 +8,8 @@ namespace PowerBISampleApp
 	{
 		public App()
 		{
+			Device.SetFlags(new[] { "Markup_Experimental" });
+
 			var navigationPage = new Xamarin.Forms.NavigationPage(new PowerBIReportsListPage())
 			{
 				BarTextColor = Color.White,

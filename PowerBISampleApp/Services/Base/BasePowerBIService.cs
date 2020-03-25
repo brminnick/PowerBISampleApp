@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.PowerBI.Api.V2;
+using Microsoft.PowerBI.Api;
 using Microsoft.Rest;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -57,7 +57,7 @@ namespace PowerBISampleApp
             return _powerBIClient;
         }
 
-        protected static async ValueTask UpdateActivityIndicatorStatus(bool isActivityIndicatorDisplayed)
+        protected static async Task UpdateActivityIndicatorStatus(bool isActivityIndicatorDisplayed)
         {
             if (isActivityIndicatorDisplayed)
             {
@@ -70,13 +70,8 @@ namespace PowerBISampleApp
                 await updateIsBusy(false).ConfigureAwait(false);
             }
 
-            static async ValueTask updateIsBusy(bool isBusy)
-            {
-                if (MainThread.IsMainThread)
-                    Application.Current.MainPage.IsBusy = isBusy;
-                else
-                    await Device.InvokeOnMainThreadAsync(() => Application.Current.MainPage.IsBusy = isBusy).ConfigureAwait(false);
-            }
+            static Task updateIsBusy(bool isBusy) =>
+                MainThread.InvokeOnMainThreadAsync(() => Application.Current.MainPage.IsBusy = isBusy);
         }
 
         static async Task Authenticate()
