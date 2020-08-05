@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.PowerBI.Api.Models;
 using Xamarin.Forms;
+using Xamarin.Forms.Markup;
 
 namespace PowerBISampleApp
 {
@@ -9,24 +10,19 @@ namespace PowerBISampleApp
     {
         public PowerBIReportsListPage()
         {
-            var collectionView = new CollectionView
-            {
-                SelectionMode = SelectionMode.Single,
-                ItemTemplate = new GroupListDataTemplate()
-            };
-            collectionView.SelectionChanged += HandleSelectionChanged;
-            collectionView.SetBinding(CollectionView.ItemsSourceProperty, nameof(PowerBIReportsListViewModel.VisibleReportsListData));
-
-            var refreshView = new RefreshView
-            {
-                Content = collectionView
-            };
-            refreshView.SetBinding(RefreshView.IsRefreshingProperty, nameof(PowerBIReportsListViewModel.IsReportsListRefreshing));
-            refreshView.SetBinding(RefreshView.CommandProperty, nameof(PowerBIReportsListViewModel.RefreshReportsListCommand));
-
             Title = "Reports List";
 
-            Content = refreshView;
+            Content = new RefreshView
+            {
+                Content = new CollectionView
+                {
+                    SelectionMode = SelectionMode.Single,
+                    ItemTemplate = new GroupListDataTemplate()
+                }.Bind(CollectionView.ItemsSourceProperty, nameof(PowerBIReportsListViewModel.VisibleReportsListData))
+                 .Invoke(collectionView => collectionView.SelectionChanged += HandleSelectionChanged)
+
+            }.Bind(RefreshView.IsRefreshingProperty, nameof(PowerBIReportsListViewModel.IsReportsListRefreshing))
+             .Bind(RefreshView.CommandProperty, nameof(PowerBIReportsListViewModel.RefreshReportsListCommand));
         }
 
         protected override void OnAppearing()

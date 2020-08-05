@@ -30,6 +30,6 @@ namespace PowerBISampleApp
         }
 
         void OnPropertyChanged([CallerMemberName] in string name = "") =>
-            _propertyChangedEventManager?.HandleEvent(this, new PropertyChangedEventArgs(name), nameof(INotifyPropertyChanged.PropertyChanged));
+            _propertyChangedEventManager.RaiseEvent(this, new PropertyChangedEventArgs(name), nameof(INotifyPropertyChanged.PropertyChanged));
     }
 }

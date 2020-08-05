@@ -46,7 +46,7 @@ namespace PowerBISampleApp
 
         class PowerBiLabel : Label
         {
-            public PowerBiLabel(FontAttributes fontAttributes, int fontSize) =>
+            public PowerBiLabel(in FontAttributes fontAttributes, in int fontSize) =>
                 (FontAttributes, FontSize) = (fontAttributes, fontSize);
         }
     }

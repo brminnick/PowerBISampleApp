@@ -1,11 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-
-using Plugin.CurrentActivity;
-
 using PowerBISampleApp.Droid;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Authenticator_Droid))]
@@ -17,7 +13,7 @@ namespace PowerBISampleApp.Droid
         {
             var uri = new Uri(returnUri);
             var authContext = new AuthenticationContext(authority);
-            var platformParams = new PlatformParameters(CrossCurrentActivity.Current.Activity);
+            var platformParams = new PlatformParameters(Xamarin.Essentials.Platform.CurrentActivity);
 
             if (authContext.TokenCache?.ReadItems()?.Any() is true)
                 authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
