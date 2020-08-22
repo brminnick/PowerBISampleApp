@@ -36,7 +36,7 @@ namespace PowerBISampleApp
 
             try
             {
-                var reports = await PowerBIService.GetReports();
+                var reports = await PowerBIService.GetReports().ConfigureAwait(false);
 
                 foreach (var report in reports.Value.OrderBy(x => x.Name))
                     VisibleReportsListData.Add(report);
