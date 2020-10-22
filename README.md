@@ -8,7 +8,7 @@ To use this sample, you will need to create a native app registration for your A
 
 Below are the screenshots for the Native App Registration that is being used for this sample. It is where you'll find the `ApplicationId` and `RedirectUrl` for your Native App Registration.
 
-For the complete walkthrough on how to embed PowerBI into your app, follow these steps: ["Tutorial: Embed a Power BI report, dashboard, or tile into an application for your customers"](https://docs.microsoft.com/power-bi/developer/embed-sample-for-customers?WT.mc_id=powerbisampleapp-github-bramin).
+For the complete walkthrough on how to embed PowerBI into your app, follow these steps: ["Tutorial: Embed a Power BI report, dashboard, or tile into an application for your customers"](https://docs.microsoft.com/power-bi/developer/embed-sample-for-customers?WT.mc_id=mobile-0000-bramin).
 
 ### Azure AD App Registration
 
