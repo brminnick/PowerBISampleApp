@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Identity.Client;
 using PowerBISampleApp.iOS;
@@ -9,7 +10,7 @@ namespace PowerBISampleApp.iOS
 {
     public class Authenticator_iOS : IAuthenticator
     {
-        public async Task<AuthenticationResult> Authenticate(string authority, string clientId, string[] scopes, string? returnUri)
+        public async Task<AuthenticationResult> Authenticate(string authority, string clientId, IEnumerable<string> scopes, string? returnUri)
         {
             AuthenticationResult authenticationResult;
 

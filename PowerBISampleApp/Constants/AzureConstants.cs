@@ -1,4 +1,6 @@
-﻿namespace PowerBISampleApp
+﻿using System.Collections.Generic;
+
+namespace PowerBISampleApp
 {
     public static class AzureConstants
     {
@@ -7,7 +9,7 @@
 
         public const string OAuth2Authority = "https://login.microsoftonline.com/common";
 
-        public static string[] Scopes { get; } = new[]
+        public static IReadOnlyList<string> Scopes { get; } = new[]
         {
             "User.Read",
             "https://analysis.windows.net/powerbi/api/Report.Read.All"
