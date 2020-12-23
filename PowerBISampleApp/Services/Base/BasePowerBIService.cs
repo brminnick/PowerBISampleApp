@@ -18,12 +18,6 @@ namespace PowerBISampleApp
             set => Preferences.Set(nameof(AccessToken), value);
         }
 
-        static string AccessTokenType
-        {
-            get => Preferences.Get(nameof(AccessTokenType), string.Empty);
-            set => Preferences.Set(nameof(AccessTokenType), value);
-        }
-
         static DateTimeOffset AccessTokenExpiresOnDateTimeOffset
         {
             get
@@ -51,7 +45,7 @@ namespace PowerBISampleApp
             if (_powerBIClient is null)
             {
                 await Authenticate().ConfigureAwait(false);
-                _powerBIClient = new PowerBIClient(new TokenCredentials(AccessToken, AccessTokenType));
+                _powerBIClient = new PowerBIClient(new TokenCredentials(AccessToken));
             }
 
             return _powerBIClient;
@@ -77,7 +71,6 @@ namespace PowerBISampleApp
         static async Task Authenticate()
         {
             if (string.IsNullOrWhiteSpace(AccessToken)
-                    || string.IsNullOrWhiteSpace(AccessTokenType)
                     || DateTimeOffset.UtcNow.CompareTo(AccessTokenExpiresOnDateTimeOffset) >= 1)
             {
                 await UpdateActivityIndicatorStatus(true).ConfigureAwait(false);
@@ -86,13 +79,11 @@ namespace PowerBISampleApp
                 {
                     var authenticationResult = await DependencyService.Get<IAuthenticator>().Authenticate(
                                                         AzureConstants.OAuth2Authority,
-                                                        AzureConstants.Resource,
                                                         AzureConstants.ApplicationId,
-                                                        AzureConstants.RedirectURL).ConfigureAwait(false);
+                                                        AzureConstants.Scopes).ConfigureAwait(false);
 
                     AccessToken = authenticationResult.AccessToken;
                     AccessTokenExpiresOnDateTimeOffset = authenticationResult.ExpiresOn;
-                    AccessTokenType = authenticationResult.AccessTokenType;
                 }
                 finally
                 {

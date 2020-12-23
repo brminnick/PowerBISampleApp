@@ -14,7 +14,6 @@ namespace PowerBISampleApp
             try
             {
                 var client = await GetPowerBIClient().ConfigureAwait(false);
-
                 return client.Reports.GetReports();
             }
             catch(Exception e)

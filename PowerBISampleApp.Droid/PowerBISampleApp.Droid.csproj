@@ -8,7 +8,7 @@
         <OutputType>Library</OutputType>
         <RootNamespace>PowerBISampleApp.Droid</RootNamespace>
         <AssemblyName>PowerBISampleApp.Droid</AssemblyName>
-        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
         <AndroidApplication>True</AndroidApplication>
         <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
         <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -61,11 +61,11 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.8" />
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
-        <PackageReference Include="Microsoft.PowerBI.Api" Version="3.14.0" />
-        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="4.3.0-pre1" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
+        <PackageReference Include="Microsoft.PowerBI.Api" Version="3.20.0" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="5.0.2" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+        <PackageReference Include="Microsoft.Identity.Client" Version="4.24.0" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />

@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.PowerBI.Api.Models;
 using Xamarin.Forms;
-using Xamarin.Forms.Markup;
+using Xamarin.CommunityToolkit.Markup;
 
 namespace PowerBISampleApp
 {

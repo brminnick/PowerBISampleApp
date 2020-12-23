@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 
 namespace PowerBISampleApp
 {
-	public interface IAuthenticator
-	{
-		Task<AuthenticationResult> Authenticate(string authority, string resource, string clientId, string returnUri);
-	}
+    public interface IAuthenticator
+    {
+        Task<AuthenticationResult> Authenticate(string authority, string clientId, string[] scopes, string? returnUri = null);
+    }
 }
