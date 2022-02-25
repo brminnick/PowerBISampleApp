@@ -104,7 +104,7 @@
         <PackageReference Include="Microsoft.PowerBI.Api" Version="3.20.0" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="5.0.2" />
         <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
         <PackageReference Include="Microsoft.Identity.Client" Version="4.24.0" />
     </ItemGroup>
     <ItemGroup>
@@ -134,6 +134,7 @@
         <ProjectReference Include="..\PowerBISampleApp\PowerBISampleApp.csproj">
             <Project>{89F44FFD-8A35-409C-A399-9EEF22E78B58}</Project>
             <Name>PowerBISampleApp</Name>
+            <ReferenceSourceTarget></ReferenceSourceTarget>
         </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
