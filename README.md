@@ -1,3 +1,5 @@
+[![Mobile](https://github.com/brminnick/PowerBISampleApp/actions/workflows/mobile.yml/badge.svg)](https://github.com/brminnick/PowerBISampleApp/actions/workflows/mobile.yml)
+
 # PowerBISampleApp
 
 A sample app demonstrating how to interact with a PowerBI backend form a Xamarin.Forms app
