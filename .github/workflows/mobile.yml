@@ -37,4 +37,4 @@ jobs:
           
       - name: Build Android App
         run: |                    
-          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./PowerBISampleApp.Droid/PowerBISampleApp.Droid.csproj /verbosity:normal /p:Configuration=Release
+          msbuild ./PowerBISampleApp.Droid/PowerBISampleApp.Droid.csproj /verbosity:normal /p:Configuration=Release
