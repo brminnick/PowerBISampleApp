@@ -104,7 +104,7 @@
         <PackageReference Include="Microsoft.PowerBI.Api" Version="4.11.0" />
         <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.6" />
         <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515+946-sha.94acebbb4-azdo.6439792" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
         <PackageReference Include="Microsoft.Identity.Client" Version="4.48.1" />
     </ItemGroup>
     <ItemGroup>
